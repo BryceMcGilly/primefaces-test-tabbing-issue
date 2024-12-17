@@ -1,21 +1,81 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:f="jakarta.faces.core"
-      xmlns:h="jakarta.faces.html"
-      xmlns:p="primefaces">
+	xmlns:ui="jakarta.faces.facelets" xmlns:f="jakarta.faces.core"
+	xmlns:h="jakarta.faces.html" xmlns:p="primefaces">
 
-    <h:head>
-        <title>PrimeFaces Test</title>
-        <h:outputScript name="test.js" />
-        <h:outputStylesheet name="test.css" />
-    </h:head>
-    <h:body>
+<h:head>
+	<title>PrimeFaces Test</title>
+	<h:outputScript name="test.js" />
+	<h:outputStylesheet name="test.css" />
+</h:head>
+<h:body>
+	<h1>#{testView.heading}</h1>
+	<h:form id="frmTest">
+		<p:dataTable id="detailTable" var="detail" value="#{testView.list}"
+			emptyMessage="No Results" rowKey="#{detail.id}" editable="true"
+			editMode="cell" selectionMode="single">
 
-        <h1>#{testView.string}</h1>
-        <h:form id="frmTest">
+			<p:column headerText="Item" colspan="3">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{detail.name}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{detail.name}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Quantity">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel id="quantityOut" value="#{detail.quantity}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:spinner min="1" decimalPlaces="0" rotate="false"
+							value="#{detail.quantity}" size="5">
+							<p:ajax update="minOrderQuantitySpinner minOrderQuantity" />
+						</p:spinner>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Minimum Order Quantity">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel id="minOrderQuantity"
+							value="#{detail.minimumQuantity}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:spinner id="minOrderQuantitySpinner" min="0"
+							max="#{detail.quantity}" decimalPlaces="0" rotate="false"
+							value="#{detail.minimumQuantity}" size="5">
 
-        </h:form>
+						</p:spinner>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Artist">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{detail.artist}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{detail.artist}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Released">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{detail.released}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputNumber value="#{detail.released}">
 
-    </h:body>
+						</p:inputNumber>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
 </html>

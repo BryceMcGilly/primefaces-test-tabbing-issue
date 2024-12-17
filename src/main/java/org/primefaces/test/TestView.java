@@ -17,21 +17,25 @@ import lombok.Data;
 @ViewScoped
 public class TestView implements Serializable {
 
-    private String string;
-    private Integer integer;
-    private BigDecimal decimal;
-    private LocalDateTime localDateTime;
-    private List<TestObject> list;
+	private static final long serialVersionUID = 1L;
 
-    @PostConstruct
-    public void init() {
-        string = "Welcome to PrimeFaces!!!";
-        list = new ArrayList<>(Arrays.asList(
-                new TestObject("Thriller", "Michael Jackson", 1982),
-                new TestObject("Back in Black", "AC/DC", 1980),
-                new TestObject("The Bodyguard", "Whitney Houston", 1992),
-                new TestObject("The Dark Side of the Moon", "Pink Floyd", 1973)
-        ));
-    }
+	private String string;
+	private List<TestObject> list;
 
+	@PostConstruct
+	public void init() {
+		string = "Reproducer for primefaces discussion 3196";
+		list = new ArrayList<>(Arrays.asList(new TestObject("Thriller", "Michael Jackson", 1982),
+				new TestObject("Back in Black", "AC/DC", 1980),
+				new TestObject("The Bodyguard", "Whitney Houston", 1992),
+				new TestObject("The Dark Side of the Moon", "Pink Floyd", 1973)));
+	}
+
+	public String getHeading() {
+		return string;
+	}
+
+	public List<TestObject> getList() {
+		return list;
+	}
 }
